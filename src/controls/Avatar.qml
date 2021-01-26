@@ -113,12 +113,16 @@ QQC2.Control {
     implicitWidth: Kirigami.Units.iconSizes.large
     implicitHeight: Kirigami.Units.iconSizes.large
 
+    activeFocusOnTab: !!actions.main
+
     Accessible.role: !!actions.main ? Accessible.Button : Accessible.Graphic
     Accessible.name: !!actions.main ? i18n("%1 — %2").arg(name).arg(actions.main.text) : name
     Accessible.focusable: !!actions.main
     Accessible.onPressAction: {
         avatarRoot.actions.main.trigger()
     }
+    Keys.onEnterPressed: if (!!avatarRoot.actions.main.trigger()) avatarRoot.actions.main.trigger()
+    Keys.onSpacePressed: if (!!avatarRoot.actions.main.trigger()) avatarRoot.actions.main.trigger()
 
     background: Rectangle {
         radius: parent.width / 2
