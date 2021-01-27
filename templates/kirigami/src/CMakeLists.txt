@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileCopyrightText: %{CURRENT_YEAR} %{AUTHOR} <%{EMAIL}>
+
 add_executable(%{APPNAMELC} main.cpp resources.qrc)
 target_link_libraries(%{APPNAMELC}
     Qt5::Core
