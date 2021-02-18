@@ -17,6 +17,6 @@ Kirigami.ShadowedRectangle {
     shadow.yOffset: Kirigami.Units.devicePixelRatio * 2
 
     border.width: Kirigami.Units.devicePixelRatio
-    border.color: Kirigami.ColorUtils.tintWithAlpha(color, Kirigami.Theme.textColor, 0.15)
+    border.color: Kirigami.ColorUtils.tintWithAlpha(color, Kirigami.Theme.textColor, 0.2)
 }
 
