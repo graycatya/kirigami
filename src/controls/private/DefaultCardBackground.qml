@@ -12,7 +12,7 @@ Kirigami.ShadowedRectangle {
 
     radius: Kirigami.Units.smallSpacing
 
-    shadow.size: Kirigami.Units.largeSpacing * 1.5
+    shadow.size: Kirigami.Units.largeSpacing
     shadow.color: Qt.rgba(0.0, 0.0, 0.0, 0.2)
     shadow.yOffset: Kirigami.Units.devicePixelRatio * 2
 
