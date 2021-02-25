@@ -15,18 +15,20 @@ AbstractApplicationHeader {
     property Item container
     property bool current
 
-    minimumHeight: pageRow.globalToolBar.minimumHeight
-    maximumHeight: pageRow.globalToolBar.maximumHeight
-    preferredHeight: pageRow.globalToolBar.preferredHeight
+    minimumHeight: pageRow ? pageRow.globalToolBar.minimumHeight : Units.iconSizes.medium + Units.smallSpacing * 2
+    maximumHeight: pageRow ? pageRow.globalToolBar.maximumHeight : minimumHeight
+    preferredHeight: pageRow ? pageRow.globalToolBar.preferredHeight : minimumHeight
 
-    separatorVisible: pageRow.globalToolBar.separatorVisible
+    separatorVisible: pageRow ? pageRow.globalToolBar.separatorVisible : true
 
-    leftPadding: Math.min(Qt.application.layoutDirection == Qt.LeftToRight
-                        ? Math.max(page.title.length > 0 ? Units.gridUnit : 0, pageRow.ScenePosition.x - page.ScenePosition.x + pageRow.globalToolBar.leftReservedSpace + Units.smallSpacing)
-                        : Math.max(page.title.length > 0 ? Units.gridUnit : 0, -pageRow.width + pageRow.ScenePosition.x + page.ScenePosition.x + page.width + pageRow.globalToolBar.leftReservedSpace),
-                    root.width/2)
+    leftPadding: pageRow ? (Math.min(Qt.application.layoutDirection == Qt.LeftToRight
+                            ? Math.max(page.title.length > 0 ? Units.gridUnit : 0, pageRow.ScenePosition.x - page.ScenePosition.x + pageRow.globalToolBar.leftReservedSpace + Units.smallSpacing)
+                            : Math.max(page.title.length > 0 ? Units.gridUnit : 0, -pageRow.width + pageRow.ScenePosition.x + page.ScenePosition.x + page.width + pageRow.globalToolBar.leftReservedSpace),
+                        root.width/2))
+                         :  Units.smallSpacing
 
-    rightPadding: Qt.application.layoutDirection == Qt.LeftToRight
-            ? Math.max(0, -pageRow.width - pageRow.ScenePosition.x + page.ScenePosition.x + page.width + pageRow.globalToolBar.rightReservedSpace)
-            : Math.max(0, pageRow.ScenePosition.x - page.ScenePosition.x + pageRow.globalToolBar.rightReservedSpace)
+    rightPadding: pageRow ? (Qt.application.layoutDirection == Qt.LeftToRight
+                            ? Math.max(0, -pageRow.width - pageRow.ScenePosition.x + page.ScenePosition.x + page.width + pageRow.globalToolBar.rightReservedSpace)
+                            : Math.max(0, pageRow.ScenePosition.x - page.ScenePosition.x + pageRow.globalToolBar.rightReservedSpace))
+                          : 0
 }

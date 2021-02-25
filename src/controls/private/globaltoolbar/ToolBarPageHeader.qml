@@ -16,7 +16,7 @@ AbstractPageHeader {
     id: root
 
     implicitWidth: layout.implicitWidth + Units.smallSpacing * 2
-    Layout.preferredHeight: Math.max(titleLoader.implicitHeight, toolBar.implicitHeight) + Units.smallSpacing * 2
+    implicitHeight: Math.max(titleLoader.implicitHeight, toolBar.implicitHeight) + Units.smallSpacing * 2
 
     MouseArea {
         anchors.fill: parent
@@ -52,7 +52,7 @@ AbstractPageHeader {
             Layout.fillHeight: true
 
             visible: actions.length > 0
-            alignment: pageRow.globalToolBar.toolbarActionAlignment
+            alignment: pageRow ? pageRow.globalToolBar.toolbarActionAlignment : Qt.AlignRight
             heightMode: ToolBarLayout.ConstrainIfLarger
 
             actions: {

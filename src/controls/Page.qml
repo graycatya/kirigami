@@ -334,7 +334,9 @@ QQC2.Page {
     Component.onCompleted: {
         headerChanged();
         parentChanged(root.parent);
+        globalToolBar.syncSource();
     }
+
     onParentChanged: {
         if (!parent) {
             return;
@@ -384,19 +386,32 @@ QQC2.Page {
             property T2.StackView stack
 
             visible: active
-            active: (row || stack) && (root.titleDelegate !== defaultTitleDelegate || root.globalToolBarStyle === Kirigami.ApplicationHeaderStyle.ToolBar || root.globalToolBarStyle === Kirigami.ApplicationHeaderStyle.Titles)
+            active: /*(row || stack) &&*/ (root.titleDelegate !== defaultTitleDelegate || root.globalToolBarStyle === Kirigami.ApplicationHeaderStyle.ToolBar || root.globalToolBarStyle === Kirigami.ApplicationHeaderStyle.Titles)
+            onActiveChanged: {
+                if (active) {
+                    syncSource();
+                }
+            }
 
             function syncSource() {
                 if (root.globalToolBarStyle !== Kirigami.ApplicationHeaderStyle.ToolBar &&
                     root.globalToolBarStyle !== Kirigami.ApplicationHeaderStyle.Titles &&
                     root.titleDelegate !== defaultTitleDelegate) {
                     sourceComponent = root.titleDelegate;
-                } else if (row && active) {
+                } else if (active) {
                     setSource(Qt.resolvedUrl(root.globalToolBarStyle === Kirigami.ApplicationHeaderStyle.ToolBar ? "private/globaltoolbar/ToolBarPageHeader.qml" : "private/globaltoolbar/TitlesPageHeader.qml"),
                     //TODO: find container reliably, remove assumption
                     {"pageRow": Qt.binding(function() {return row}),
                     "page": root,
-                    "current": Qt.binding(function() {return stack || row.currentIndex === root.Kirigami.ColumnView.level})});
+                    "current": Qt.binding(function() {
+                        if (!row && !stack) {
+                            return true;
+                        } else if (stack) {
+                            return stack;
+                        } else {
+                            return row.currentIndex === root.Kirigami.ColumnView.level;
+                        }
+                    })});
                 }
             }
         },
